@@ -10,6 +10,7 @@ interface NavProps {
 
 export default function Nav({ activePage = 'home' }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -17,9 +18,11 @@ export default function Nav({ activePage = 'home' }: NavProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav id="main-nav" className={scrolled ? 'scrolled' : ''}>
-      <Link href="/" className="nav-logo">
+    <nav id="main-nav" className={`${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
+      <Link href="/" className="nav-logo" onClick={closeMenu}>
         <Image
           src="/mapache-logo.png"
           alt="Mapache Studio"
@@ -29,36 +32,47 @@ export default function Nav({ activePage = 'home' }: NavProps) {
         />
         <span>Mapache Studio</span>
       </Link>
-      <ul className="nav-links">
-        <li>
-          <Link href={activePage === 'home' ? '#servicios' : '/#servicios'}>
-            Servicios
-          </Link>
-        </li>
-        <li>
-          <Link href={activePage === 'home' ? '#nosotros' : '/#nosotros'}>
-            Nosotros
-          </Link>
-        </li>
-        <li>
-          <Link href="/lanzamientos" className={activePage === 'lanzamientos' ? 'active' : ''}>
-            Lanzamientos
-          </Link>
-        </li>
-        <li>
-          <Link href={activePage === 'home' ? '#galeria' : '/#galeria'}>
-            Galería
-          </Link>
-        </li>
-        <li>
-          <Link href={activePage === 'home' ? '#contacto' : '/#contacto'}>
-            Contacto
-          </Link>
-        </li>
-      </ul>
-      <Link href={activePage === 'home' ? '#contacto' : '/#contacto'} className="nav-cta">
-        Reservar
-      </Link>
+      
+      <div className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+        <ul className="nav-links">
+          <li>
+            <Link href={activePage === 'home' ? '#servicios' : '/#servicios'} onClick={closeMenu}>
+              Servicios
+            </Link>
+          </li>
+          <li>
+            <Link href={activePage === 'home' ? '#nosotros' : '/#nosotros'} onClick={closeMenu}>
+              Nosotros
+            </Link>
+          </li>
+          <li>
+            <Link href="/lanzamientos" className={activePage === 'lanzamientos' ? 'active' : ''} onClick={closeMenu}>
+              Lanzamientos
+            </Link>
+          </li>
+          <li>
+            <Link href={activePage === 'home' ? '#galeria' : '/#galeria'} onClick={closeMenu}>
+              Galería
+            </Link>
+          </li>
+          <li>
+            <Link href={activePage === 'home' ? '#contacto' : '/#contacto'} onClick={closeMenu}>
+              Contacto
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      <div className="nav-actions">
+        <Link href={activePage === 'home' ? '#contacto' : '/#contacto'} className="nav-cta" onClick={closeMenu}>
+          Reservar
+        </Link>
+        <button className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </nav>
   );
 }
