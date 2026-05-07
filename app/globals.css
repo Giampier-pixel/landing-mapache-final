@@ -18,12 +18,16 @@
   --youtube:    #FF0000;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
   background: var(--black);
   color: var(--white);
-  overflow-x: hidden;
   font-family: var(--font-head);
   font-size: 0.85rem;
   letter-spacing: 0.04em;
@@ -579,11 +583,14 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  nav { padding: 1.2rem 1.5rem; }
+  nav { padding: 1.2rem 1.2rem; }
+  .nav-logo span { font-size: 0.85rem; }
+  .nav-cta { padding: 0.5rem 1rem; font-size: 0.75rem; }
   .nav-links { display: none; }
   #nosotros { grid-template-columns: 1fr; gap: 3rem; }
   #contacto { grid-template-columns: 1fr; gap: 3rem; }
   #servicios, #galeria, #nosotros, #contacto { padding: 5rem 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .gallery-item:nth-child(n) { grid-column: span 1; aspect-ratio: 1; }
   .gallery-item:nth-child(1) { grid-column: span 2; }
@@ -591,4 +598,5 @@ footer {
   .page-header, .filter-bar, .releases-section { padding-left: 1.5rem; padding-right: 1.5rem; }
   .release-card.featured { grid-column: span 1; flex-direction: column; }
   .release-card.featured .release-cover { flex: unset; width: 100%; height: auto; aspect-ratio: 1/1; }
+  #whatsapp-btn { width: 48px; height: 48px; bottom: 1.5rem; right: 1.5rem; }
 }
