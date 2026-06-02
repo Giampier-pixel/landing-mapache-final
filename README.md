@@ -1,0 +1,1 @@
+Landing build with NextJS
